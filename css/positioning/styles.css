@@ -1,0 +1,25 @@
+body {
+	background-color: SkyBlue;
+}
+
+#body {
+	margin: 100px auto;
+	display: block;
+}
+
+#hat {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+	top: 200px;
+	left: 10px;
+}
+
+#glasses {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+	top: -290px;
+	left: 5px;
+
+}
