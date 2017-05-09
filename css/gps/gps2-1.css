@@ -1,3 +1,47 @@
-body {
-	
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+
+header {
+  background-color: beige;
+  padding: 20px;
 }
+
+section {
+  padding: 15px
+}
+
+header h1 {
+  font: 30px sans-serif;
+}
+
+h2, p, ul {
+  font-family: 'Raleway';
+}
+
+footer {
+  font-size: 20px;
+  background-color: Snow;
+  text-align: center;
+  height: 50px;
+  padding: 20px;
+}
+
+summary {
+  text-indent: 50px;
+}
+
+.column-1, .column-2 {
+  background-color: LightBlue;
+  display: inline-block;
+  width: 47%;
+  vertical-align: top;
+  min-height: 1000px;
+}
+
+/*.column-2 {
+  background-color: Snow;
+  display: inline-block;
+  width: 47%;
+  vertical-align: top;
+}*/
+
