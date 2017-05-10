@@ -1,0 +1,43 @@
+My understanding of the instructions is one of 3 - 1. the robot is using the elevator to go to a certain floor,2. the robot is the elevator boy pressing the buttons for the ppl using the elevator or 3. the robot IS the elevator, hence the algorithm is for the elevator itself. I’m going with the 1st option
+
+
+USING AN ELEVATOR
+
+- If you are going up to a floor with a higher number than you are currently on, press the button with the upward facing arrow, otherwise press the button with the downward pointing arrow. 
+- Wait until the elevator stops at your level. 
+- When you hear a bell sounding the elevator has arrived to your level.  
+	- If there are multiple elevators the one available will sound a bell when it arrives and possible a lamp will light up. Go to that elevator. 
+	- Make sure that the elevator is going your direction before getting on.
+- The doors will slide open.
+- Let people exit.
+- Enter the elevator.
+- Press the number on the wall corresponding with your destination level. (Sometimes the 1st floor is not represented by 1, it could be “L” for lobby or just a star).
+	- If you are unsure of what floor you’re going to there’s a list on the wall stating what is on each floor. 
+- Let the doors slide close. 
+- Stand out of the way from the doors to let people in and out of the elevator on the way to your destination.
+- Above the doors is a sign to indicate what floor you are currently on. Watch it get closer to your destination. 
+- Only get off if the sign shows the same level you pressed on the wall. 
+- When the elevator stops at your destination wait for the doors to open. 
+- Exit the elevator. 
+
+You made it!
+
+
+MAKING COFFEE (DRIP)
+
+- take the glass pot out of the machine. 
+- fill it up with water to desired amount of cups, there’s a cup measureme on the side of the pot.
+- Open the lid on top of the machine
+- Pour the water in the pot into the back compartment of the machine.
+- place pot back in its slot.
+	-make sure it’s all the way in
+- put coffee filter in the round compartment on the top of the machine
+- Put ground coffee in the filter. The magic ratio is: 1 scoop for each cup plus one for the pot. For example, you want to make 4 cups of coffee you put 5 scoops of ground coffee in the filter. 
+- Close the lid on the top of the machine.
+- press the “on” button. 
+- wait until the pot has filled to the amounts of cups you made and there is no more dripping down from the filter. 
+- Pour into cup.
+	- Pour milk/cream and/or sugar to your liking into cup and stir
+- take a small sip 
+	- If it’s too hot wait a little until it’s cooled down
+- Enjoy your drink! 
