@@ -14,6 +14,10 @@ def employee_survey
   print "Would you like to enroll in the company's health insurance? "
   insurance = gets.chomp
 
+  p "Name any allergies you have, one at a time. When you're done or if you have none type 'done' "
+  allergy = gets.chomp
+
+
   conclusion = nil 
 
   if age == (2017 - birth_year) && (garlic == 'yes' || insurance == 'yes')
@@ -32,11 +36,35 @@ def employee_survey
     conclusion = "#{name} is definitely a vampire "
   end
 
+  #until allergy == 'sunshine' || 'done'
+    
+  #  if allergy == 'sunshine'
+  #    conclusion = "#{name} is probably a vampire "
+  #  elsif allergy == 'done'
+  #    conclusion == conclusion
+  #  end
+
+  #end
+
+  while allergy = gets.chomp
+    if allergy == 'sunshine'
+      conclusion = "#{name} is probably a vampire "
+      break
+    end
+    if allergy == 'done'
+      break
+    end
+  end
+
+
   if conclusion == nil
     puts "results inconclusive"
   else
     puts conclusion
   end
+
+
+        
 end
 
 puts "How many employees will be evaluated?"
