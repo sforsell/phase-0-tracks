@@ -20,15 +20,15 @@ def employee_survey
 
   conclusion = nil 
 
-  if age == (2017 - birth_year) && (garlic == 'yes' || insurance == 'yes')
+  if age == (Time.now.year - birth_year) && (garlic == 'yes' || insurance == 'yes')
     conclusion = " #{name} is probably not a vampire "
   end
 
-  if age != (2017 - birth_year) && (garlic == 'no' || insurance == 'no')
+  if age != (Time.now.year - birth_year) && (garlic == 'no' || insurance == 'no')
     conclusion = "#{name} is probably a vampire "
   end
 
-  if age != (2017 - birth_year) && (garlic == 'no' && insurance == 'no')
+  if age != (Time.now.year - birth_year) && (garlic == 'no' && insurance == 'no')
     conclusion = "#{name} is almost certainly a vampire "
   end
 
