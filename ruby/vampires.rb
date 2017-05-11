@@ -1,12 +1,3 @@
-puts "How many employees will be evaluated?"
-employee_num = gets.chomp.to_i
-i = 0
-
-until i > employee_num do
-  employee_survey
-  i += 1
-end
-
 def employee_survey
   print "What is your name? "
   name = gets.chomp.downcase
@@ -26,25 +17,33 @@ def employee_survey
   conclusion = nil 
 
   if age == (2017 - birth_year) && (garlic == 'yes' || insurance == 'yes')
-    conclusion = "probably not a vampire"
+    conclusion = " #{name} is probably not a vampire "
   end
 
   if age != (2017 - birth_year) && (garlic == 'no' || insurance == 'no')
-    conclusion = "probably a vampire"
+    conclusion = "#{name} is probably a vampire "
   end
 
   if age != (2017 - birth_year) && (garlic == 'no' && insurance == 'no')
-    conclusion = "almost certainly a vampire"
+    conclusion = "#{name} is almost certainly a vampire "
   end
 
   if name == 'drake cula' || name == 'tu fang'
-    conclusion = "definitely a vampire"
+    conclusion = "#{name} is definitely a vampire "
   end
 
   if conclusion == nil
-    print "results inconclusive"
+    puts "results inconclusive"
   else
-    print conclusion
+    puts conclusion
   end
 end
 
+puts "How many employees will be evaluated?"
+employee_num = gets.chomp.to_i
+
+i = 0
+until i == employee_num do
+  employee_survey
+  i += 1
+end
