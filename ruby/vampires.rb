@@ -64,7 +64,7 @@ puts "How many employees will be evaluated?"
 employee_num = gets.chomp.to_i
 
 i = 0
-until i == employee_num do
+until i >= employee_num do
   employee_survey
   i += 1
 end
