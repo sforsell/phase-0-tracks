@@ -31,7 +31,13 @@ def alias_maker(full_name)
 
   end
 
-  p name.join
+# take characters, join together into whole string, split
+# into separate words and then capitalize each word.
+
+  capitalized = name.join.split.each do |item|
+    name[item].capitalize!
+    # name.join CANT FIGURE THIS PART OUT!! perhaps utside of each?
+  end
 
 end
 
