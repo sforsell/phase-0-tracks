@@ -9,12 +9,14 @@
     # if it's a space do nothing.
 # once you've changed the characters, join the name back together again.
 
+stored_names = {}
+
 def alias_maker(full_name)
   name = full_name.downcase.split(' ').reverse.join(' ').split('')
 
   vowels = "aeiou"
   consonants = "bcdfghjklmnpqrstvwxyz"
-# =begin
+
   name.map! do |char|
 
     if char == 'u'
@@ -31,56 +33,32 @@ def alias_maker(full_name)
 
   end
 
-# take characters, join together into whole string, split
-# into separate words and then capitalize each word.
 
   capitalized = name.join.split.each do |item|
-    name[item].capitalize!
-    # name.join CANT FIGURE THIS PART OUT!! perhaps utside of each?
+    item.capitalize!
+    
   end
 
+	alias_name = capitalized.join(' ')
+	alias_name
+	
 end
 
-
-puts "type in your full name"
+puts "Type in full name, type 'quit' when you're done."
 original_name = ""
 
 while original_name = gets.chomp
 
   if original_name == 'quit'
-    break
+    break  
   else
-    alias_maker(original_name)
+    stored_names[original_name] = alias_maker(original_name)
   end
 
 end
 
+stored_names.each_pair { |key, value| puts "#{value} is actually #{key}"}
 
 
-=begin
 
-def decrypt(word)
-  alphabet = "abcdefghijklmnopqrstuvwxyz"
 
-  i = 0
-
-    while i< word.length
-
-      # the opposite - if a replace with z
-      if word[i] == "a"
-        word[i] = "z"
-      elsif word[i] == " "
-        word[i] = " "
-      else
-        # compare the letter to the alphabet to find it's position
-        # and then go back one.
-        index_num = alphabet.index(word[i]) - 1
-        # replacing the original letter with the new one
-        word[i] = alphabet[index_num]
-      end
-
-      i += 1
-
-    end
-
-=end
