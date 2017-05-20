@@ -3,23 +3,61 @@
 zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
                               "shotgun", "compass", "CB radio", "batteries"]
 
+my_supplies = zombie_apocalypse_supplies
+
 # 1. Iterate through the zombie_apocalypse_supplies array,
 # printing each item in the array separated by an asterisk
 # ----
-
+my_supplies.each { |item| print "#{item}*"}
 # 2. In order to keep yourself organized, sort your zombie_apocalypse_supplies
 # in alphabetical order. Do not use any special built-in methods.
 # ----
+my_supplies.each do 
+  updated = false
+  index = 0
+
+  my_supplies.each do |item|
+    break if my_supplies[index] == my_supplies[-1]
+
+    if item.downcase > my_supplies[index+1]
+      my_supplies[index], my_supplies[index+1] = my_supplies[index +1], my_supplies[index]
+      updated = true
+    end
+
+    index += 1
+
+  end
+
+  break if updated == false 
+  
+end
+p my_supplies
+
 
 # 3. Create a method to see if a particular item (string) is in the
 # zombie_apocalypse_supplies. Do not use any special built-in methods.
 # For instance: are boots in your list of supplies?
 # ----
+def search(word, list)
+	list.each do |item|
+		if item == word
+			p " '#{item}' was found" 
+		end
+	end
+end
 
+search("boots", my_supplies)
+search("batteries", my_supplies)
 # 4. You can't carry too many things, you've only got room in your pack for 5.
 # Remove items in your zombie_apocalypse_supplies in any way you'd like,
 # leaving only 5. Do not use any special built-in methods.
 # ----
+=begin
+
+my_supplies = my_supplies[0..4]
+p my_supplies
+
+=end
 
 # 5. You found another survivor! This means you can combine your supplies.
 # Create a new combined supplies list out of your zombie_apocalypse_supplies
@@ -29,7 +67,9 @@ zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
 other_survivor_supplies = [ "warm clothes", "rations", "compass", "camp stove",
                             "solar battery", "flashlight"]
 # ----
+combined_supplies = other_survivor_supplies.push(my_supplies).flatten.uniq!
 
+p combined_supplies
 # Hash Drills
 
 extinct_animals = {
