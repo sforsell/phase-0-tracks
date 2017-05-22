@@ -1,4 +1,7 @@
 class Santa
+	attr_reader :age, :ethnicity
+	attr_accessor :gender
+
 	def initialize(gender, ethnicity)
 		@gender = gender
 		@ethnicity = ethnicity
@@ -23,22 +26,6 @@ class Santa
 		@reindeer_ranking.slice!(@reindeer_ranking.index(reindeer))
 		@reindeer_ranking.push(reindeer)
 	end	
-
-#getter
-
-	def age 
-		@age
-	end
-
-	def ethnicity
-		@ethnicity
-	end
-
-#setter
-
-	def gender=(new_gender)
-		@gender = new_gender
-	end
 
 end
 
