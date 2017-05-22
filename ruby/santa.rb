@@ -35,13 +35,14 @@ genders = ["agender", "female", "bigender", "male", "female", "gender fluid", "N
 	"prefer not to say", "basic bitch", "priviliged", "it's complicated"]
 ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to say", 
 	"unicorn", "N/A", "ginger", "faun", "centaur", "mermaid"]
-=begin
-	genders.length.times do |i|
-		santas << Santa.new(genders[i], ethnicities[i])
-	end
-=end
 
-print santas
+1000.times do 
+	santas << Santa.new(genders.sample, ethnicities.sample)
+end
+
+p santas
+p santas.length
+=begin
 
 santa1 = Santa.new("male", "white")
 p santa1
@@ -56,6 +57,7 @@ santa1.gender = "transforming"
 
 p santa1
 
+=end
 
 
 
