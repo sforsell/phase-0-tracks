@@ -11,7 +11,6 @@
 # steps: 
   # look for item in list
   	# IF item doesn't exist add item
-  	# IF it exists, run update_quantity method
   	# print list 
 # output: hash with added items. 
 		
@@ -25,7 +24,7 @@
 
 
 # Method to update the quantity of an item
-# input:
+# input: list, item, new quantity
 # steps:
 	# look for item in list
 	# IF item exists, update the value with the new quantity
@@ -36,7 +35,7 @@
 # Method to print a list and make it look pretty
 # input: list (hash)
 # steps:
-  # for each item print value (quantity) first followed by the keys, new line for each item.
+  # for each item print value (quantity) first followed by the keys (item), new line for each item.
 # output: printed hash
 
 
@@ -48,27 +47,57 @@ def create_list(string)
 	init_list
 end
 
-def print_list(list)
-	puts "your current list is:"
-	list.each do | item, quantity |
-		p "#{quantity} #{item}"
+def add_item(list, item, quantity = 1)
+	puts "adding #{quantity} #{item}..."
+	if list.assoc(item) == nil
+		list[item] = quantity
+	else
+		puts "You already have #{item} on your list!"
 	end
+	print_list(list)
+end 
+
+def remove_item(list, item)
+	puts "deleting #{item}..."
+	list.delete(item) { |item| puts "you don't have #{item} on your list," }
+	print_list(list)
+end
+
+def update_quant(list, item, new_quantity)
+	puts "updating amount of #{item}..."
+	if list.assoc(item) == nil
+		puts "there's no such item on your list,"
+	else
+		list[item] = new_quantity
+	end
+	print_list(list)
 end
 
 
 
-def add_item(list, item, quantity = 1)
-	list[item] = quantity
-end 
-
-
+def print_list(list)
+	puts "your current list is:"
+	puts "---------------------"
+	list.each do | item, quantity |
+		puts "#{quantity} #{item}"
+	end
+	puts "---------------------"
+end
 
 
 
 current_list = create_list("carrots apples cereal pizza")
-add_item(current_list, "tea")
-add_item(current_list, "bananas", 3)
 print_list(current_list)
+add_item(current_list, "lemonade", 2)
+add_item(current_list, "tomatoes", 3)
+add_item(current_list, "onions")
+add_item(current_list, "ice cream", 4)
+remove_item(current_list, "lemonade")
+update_quant(current_list, "ice cream", 1)
+
+
+
+
 
 
 
