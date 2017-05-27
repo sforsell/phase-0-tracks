@@ -35,7 +35,7 @@
   # if all letters are matched
     # print a congratulatory message
 
-require 'io/console'
+require 'io/console' # to hide the input from player 1
 # ------------ CLASS --------------- #
 class Game
   attr_reader :secret_word
@@ -48,14 +48,14 @@ class Game
   end
 
   def guess(letter)
-    @guesses << letter
+    @guesses << letter # check for duplicates later in driver code
   end
 
   def current_status
     current = String.new
     @secret_word.each_char do |letter|
-      if @guesses.include?(letter) 
-        current << letter + " "
+      if @guesses.include?(letter)  
+        current << letter + " " # tried using gsub! here, did not work as expected
       else
         current << "_ "
       end
@@ -64,6 +64,7 @@ class Game
   end
 
   def has_won
+    # if the current status contains underscores, player has not guessed all letters
     if current_status.include? "_" 
       false
     else
@@ -74,7 +75,7 @@ end
 # ---------- USER INTERFACE ----------- #
 
 puts "Ready to play a game? Player 1 type in a secret word!"
-word = STDIN.noecho(&:gets).chomp
+word = STDIN.noecho(&:gets).chomp # hides input from player 1
 
 game = Game.new(word)
 
