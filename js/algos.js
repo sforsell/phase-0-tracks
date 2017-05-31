@@ -35,37 +35,35 @@ input: two objects
         - IF theres a match
           - IF the values at the keys are a match
             - return true
-          - ELSE return false
-        - ELSE
-          - return false
+    - all others that haven't been "caught" in the loop returns false. 
 output: boolean
 */
 
 function keyValueMatch(object1, object2) {
-  for(var key = 0; Object.keys(object1).length > key; key++){
-    if (Object.keys(object1)[key] === Object.keys(object2)[key]) {
-      if (object1[key] === object2[key]) {
+  for(var i = 0; Object.keys(object1).length > i; i++){
+    for(var index = 0; Object.keys(object2).length > index; index++) {
+      // very long ugly code. Object.keys(object1)[i] gets the name of the key. object1[Object.keys(object1)[i]] gets the value at that key. 
+      if (Object.keys(object1)[i] === Object.keys(object2)[index] && object1[Object.keys(object1)[i]] === object2[Object.keys(object2)[index]]) {
         return true;
-      } else {
-        return false;
       }
-    } else {
-      return false;
     }
   }
+  return false;
 }
 
-person1 = {name: "Steven", age: 54};
-person2 = {name: "Tamir", age: 54};
-animal1 = {animal: "Dog", legs: 4};
-animal2 = {animal: "Dog", legs: 3};
-animal3 = {animal: "Bird", legs: 2};
+steven = {name: "Steven", age: 54};
+tamir = {name: "Tamir", age: 54};
+dog1 = {animal: "Dog", legs: 4};
+dog2 = {animal: "Dog", legs: 3};
+bird = {animal: "Bird", legs: 2};
+tRex = {animal: "T-Rex", fur: "none", legs: 2};
 
-console.log(keyValueMatch(person1, person2)); //returns true
-console.log(keyValueMatch(animal1, animal2)); //returns true
-console.log(keyValueMatch(person1, animal2)); //returns false
-console.log(keyValueMatch(animal1, animal3)); //returns true, but should return false.
-//keyValueMatch only checks if the keys are matching, not their respective value...
+
+console.log(keyValueMatch(steven, tamir)); //returns true
+console.log(keyValueMatch(dog1, dog2)); //returns true
+console.log(keyValueMatch(steven, dog2)); //returns false
+console.log(keyValueMatch(dog1, bird)); //returns false
+console.log(keyValueMatch(tRex, bird)); //returns true
 
 
 
