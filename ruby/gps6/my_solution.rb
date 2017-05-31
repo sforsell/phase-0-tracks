@@ -1,28 +1,30 @@
 # Virus Predictor
 
-# I worked on this challenge [by myself, with: ].
+# I worked on this challenge [by myself].
 # We spent [#] hours on this challenge.
 
 # EXPLANATION OF require_relative
-#
-#
+# file exists in same directory hence the "relative"
+# fetches the file in qoutes. 
+
 require_relative 'state_data'
 
 class VirusPredictor
-
+  # pulls in data for each instance upon initialization.  
   def initialize(state_of_origin, population_density, population)
     @state = state_of_origin
     @population = population
     @population_density = population_density
   end
-
+  # virus effects outputs a string, one from each method inside. 
   def virus_effects
     predicted_deaths(@population_density, @population, @state)
     speed_of_spread(@population_density, @state)
   end
 
   private
-
+  # checks for density and based on density level number of deaths go up. Number
+  # of deaths are based on population times a float.
   def predicted_deaths(population_density, population, state)
     # predicted deaths is solely based on population density
     if @population_density >= 200
@@ -40,7 +42,7 @@ class VirusPredictor
     print "#{@state} will lose #{number_of_deaths} people in this outbreak"
 
   end
-
+  # again checks for population density and based on that returns a number: speed. 
   def speed_of_spread(population_density, state) #in months
     # We are still perfecting our formula here. The speed is also affected
     # by additional factors we haven't added into this functionality.
@@ -69,7 +71,34 @@ end
 # DRIVER CODE
  # initialize VirusPredictor for each state
 
+ # iteration would get the state "strings" a key and the hash as the value. 
+=begin
+outerHash = {
+  "ONE" => {one: "*1*", eleven: "*11*", hundredeleven: "*111*"},
+  "TWO" => {two: "*2*", twentytwo: "*22*", two0022: "*222*"},
+  "THREE" => {three: "*3*", thirtythree: "*33*", three0033: "*333*"},
+  "FOUR" => {four: "*4*", fortyfour: "*44*", four0044: "*444*"},
+  "FIVE" => {five: "*5*", fiftyfive: "*55*", five0055: "*555*"}
+}
 
+outerHash.each do | outer_key , outer_value|
+  puts "#{outer_key}"
+  outerHash[outer_key].each do | inner_key, inner_value |
+    puts " #{inner_key} + #{inner_value}"
+  end
+end
+puts outerHash["ONE"][:one]
+=end
+alabama = VirusPredictor.new("Alabama", STATE_DATA["Alabama"][:population_density], STATE_DATA["Alabama"][:population])
+alabama.virus_effects
+
+STATE_DATA.each_key do | state |
+ 
+  
+    VirusPredictor.new(state, STATE_DATA[state][:population_density], STATE_DATA[state][:population]).virus_effects
+  
+end
+=begin
 alabama = VirusPredictor.new("Alabama", STATE_DATA["Alabama"][:population_density], STATE_DATA["Alabama"][:population])
 alabama.virus_effects
 
@@ -82,6 +111,9 @@ california.virus_effects
 alaska = VirusPredictor.new("Alaska", STATE_DATA["Alaska"][:population_density], STATE_DATA["Alaska"][:population])
 alaska.virus_effects
 
-
+=end
 #=======================================================================
 # Reflection Section
+
+
+
