@@ -1,7 +1,7 @@
 # Virus Predictor
 
 # I worked on this challenge [by myself].
-# We spent [#] hours on this challenge.
+# I spent [3] hours on this challenge.
 
 # EXPLANATION OF require_relative
 # file exists in same directory hence the "relative"
@@ -16,48 +16,47 @@ class VirusPredictor
     @population = population
     @population_density = population_density
   end
+
   # virus effects outputs a string, one from each method inside. 
   def virus_effects
-    predicted_deaths(@population_density, @population, @state)
-    speed_of_spread(@population_density, @state)
+    predicted_deaths
+    speed_of_spread
   end
 
   private
   # checks for density and based on density level number of deaths go up. Number
   # of deaths are based on population times a float.
-  def predicted_deaths(population_density, population, state)
+  def predicted_deaths
     # predicted deaths is solely based on population density
-    if @population_density >= 200
-      number_of_deaths = (@population * 0.4).floor
-    elsif @population_density >= 150
-      number_of_deaths = (@population * 0.3).floor
-    elsif @population_density >= 100
-      number_of_deaths = (@population * 0.2).floor
-    elsif @population_density >= 50
-      number_of_deaths = (@population * 0.1).floor
+    if @population_density > 199
+      total_deaths = (@population * 0.4)
+    elsif @population_density > 149
+      total_deaths = (@population * 0.3)
+    elsif @population_density > 99
+      total_deaths = (@population * 0.2)
+    elsif @population_density > 49
+      total_deaths = (@population * 0.1)
     else
-      number_of_deaths = (@population * 0.05).floor
+     total_deaths = (@population * 0.05)
     end
 
-    print "#{@state} will lose #{number_of_deaths} people in this outbreak"
+    print "#{@state} will lose #{total_deaths.floor} people in this outbreak"
 
   end
   # again checks for population density and based on that returns a number: speed. 
-  def speed_of_spread(population_density, state) #in months
+  def speed_of_spread #in months
     # We are still perfecting our formula here. The speed is also affected
     # by additional factors we haven't added into this functionality.
-    speed = 0.0
-
-    if @population_density >= 200
-      speed += 0.5
-    elsif @population_density >= 150
-      speed += 1
-    elsif @population_density >= 100
-      speed += 1.5
-    elsif @population_density >= 50
-      speed += 2
+    if @population_density > 199
+      speed = 0.5
+    elsif @population_density > 149
+      speed = 1
+    elsif @population_density > 99
+      speed = 1.5
+    elsif @population_density > 49
+      speed = 2
     else
-      speed += 2.5
+      speed = 2.5
     end
 
     puts " and will spread across the state in #{speed} months.\n\n"
@@ -72,7 +71,9 @@ end
  # initialize VirusPredictor for each state
 
  # iteration would get the state "strings" a key and the hash as the value. 
+
 =begin
+## iteration practice ##
 outerHash = {
   "ONE" => {one: "*1*", eleven: "*11*", hundredeleven: "*111*"},
   "TWO" => {two: "*2*", twentytwo: "*22*", two0022: "*222*"},
@@ -89,8 +90,7 @@ outerHash.each do | outer_key , outer_value|
 end
 puts outerHash["ONE"][:one]
 =end
-alabama = VirusPredictor.new("Alabama", STATE_DATA["Alabama"][:population_density], STATE_DATA["Alabama"][:population])
-alabama.virus_effects
+
 
 STATE_DATA.each_key do | state |
  
@@ -114,6 +114,21 @@ alaska.virus_effects
 =end
 #=======================================================================
 # Reflection Section
+# the difference in syntax is that the state key is a string and references to its 
+# value with a rocket => and the population_density and population are symbols. 
+# also, the states are all on a new line whereas the state hash is on one line. 
 
+# require_relative:  you can give require_relitve a relative path (not required if 
+# in the same directory).
+# require searches by an absolute path from your top directory.
+
+# you can iterate over hashes using .each, .each_key, .each_pair and .each_value. 
+
+# At first, just the amount of variables stood out to me, but the second thing was 
+# that they weren't instance variables and when I looked at the methods 
+# in virus_effects they weren't even using the method parameters, they were using 
+# the instance variables. 
+
+# The concept I mostly solidified was iteration, but nested data also got a refresher. 
 
 
