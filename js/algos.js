@@ -88,12 +88,14 @@ function randomStrings(number){
 
 
 // ------- DRIVER CODE --------
+// release 0
 var numbers = ["1", "fourteen", "seven", "five"];
 var phrases = ["hello", "I", "like", "cheese"];
 
 console.log(longestPhrase(numbers));
 console.log(longestPhrase(phrases));
 
+// release 1
 steven = {name: "Steven", age: 54};
 tamir = {name: "Tamir", age: 54};
 dog1 = {animal: "Dog", legs: 4};
@@ -107,8 +109,21 @@ console.log(keyValueMatch(steven, dog2)); //returns false
 console.log(keyValueMatch(dog1, bird)); //returns false
 console.log(keyValueMatch(tRex, bird)); //returns true
 
+// release 2
+// if I have the following line uncommented my loop does not print out the first
+// iteration.... BUGS!
+// console.log(longestPhrase(randomStrings(5)));
 
-console.log(longestPhrase(randomStrings(5)));
+var printArray = []
+
+for(var counter = 1; counter <= 10; counter++) {
+  printArray = randomStrings(5);
+  console.log(printArray);
+  console.log(longestPhrase(printArray));
+  // need to delete array content before the next iteration
+  // for some reason.
+  printArray.splice(0, printArray.length);
+}
 
 
 
