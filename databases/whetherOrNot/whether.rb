@@ -8,7 +8,7 @@
 
 #     SCHEMA: 
 
-#     clothes: 
+#     items: 
 #       id INT PK 
 #       item VARCHAR <- name and short descr of item, ie "white ruffeled tank"
 #       warmth_level INT <- between 1-3
@@ -37,7 +37,7 @@
 
 # Method to retrieve user
 
-# Method to add clothes
+# Method to add items
 
 # Method to retrieve outfit. 
 
@@ -66,7 +66,69 @@
 #     IF exit
 #       exit program.
 
+require 'sqlite3'
+
+db = SQLite3::Database.new("whether.db")
+db.results_as_hash = true
+
+create_user_table = <<-SQL
+  CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY,
+  name VARCHAR(255)
+  );
+
+SQL
+
+create_items_table = <<-SQL
+  CREATE TABLE IF NOT EXISTS items (
+    id INTEGER PRIMARY KEY,
+    item VARCHAR(255),
+    category VARCHAR(255),
+  warmth_level INT
+  );
+
+SQL
+
+create_user_closet_table = <<-SQL
+  CREATE TABLE IF NOT EXISTS user_closet (
+    user_id INT,
+    item_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (item_id) REFERENCES items(id)
+  );
+
+SQL
+
+db.execute(create_user_table)
+db.execute(create_items_table)
+db.execute(create_user_closet_table)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SQL
 
 
