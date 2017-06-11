@@ -82,7 +82,7 @@ create_items_table = <<-SQL
     category VARCHAR(255),
     warmth_level INT,
     user_id INT,
-    FOREIGN KEY user_id REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
   );
 
 SQL
@@ -96,6 +96,7 @@ end
 def fetch_user(user_name)
   user = database.execute("SELECT * FROM users WHERE name = ? ;", [user_name])
   return user[0] unless user.empty?
+  #user returns as just a hask - not a hash inside an array. 
 end
 
 def add_item(item, category, warmth_level, user_id)
@@ -103,29 +104,36 @@ def add_item(item, category, warmth_level, user_id)
                   [item, category, warmth_level, user_id])
 end
 
-def retrieve_item(warmth_level, category, user_id) 
-   database.execute("SELECT * FROM items WHERE warmth_level = ? 
-                    AND category = ? order by random () limit 1 
-                    WHERE user_id = ?;",
-                    [warmth_level, category, user_id])
+def retrieve_item(warmth_level, user_id, category ) 
+  item = database.execute("SELECT item FROM items WHERE warmth_level = ?
+                    AND user_id = ?
+                    AND category = ? order by random () limit 1;",
+                    [warmth_level, user_id, category])
+  return item[0] # returns as just a hash - not a hash inside an array. 
 end
 
 def print_clothes(user_id)
-  items_list = database.execute("SELECT item FROM items WHERE user_id = ? ORDER BY category;", [user_id])
+  items_list = database.execute("SELECT item, category FROM items WHERE user_id = ? ORDER BY category;", [user_id])
   puts "These are the clothes in your closet:"
-  items_list.each do |item|
-    puts "- {items_list[0][item]}" # like this or items_list[item] ??
+  items_list.each_index do |index|
+    puts "- #{items_list[index]['item']} --> #{items_list[index]['category']}" # like this or items_list[item] ??
   end
 end
 
-# fetch_user(db, "sofia")
-# add_item(db, "white button down", "tops", 2) # IVE ALREADY RUN THIS - IT WORKS
+# fetch_user("sofia") -- returns hash
+# fetch_user("sofia")['id'] -- reurns id as int
+# add_item("white button down", "tops", 2, 1) -- works like this
+# retrieve_item(2, 1, "bottoms") # -- returns hash
+# retrieve_item(2, 1, "bottoms")['item'] # -- returns string
+# print_clothes(1)
 
+# items_list = database.execute("SELECT item FROM items WHERE user_id = 1 ORDER BY category;")
+# items_list # -- returns an array with many hashes. 
 # ------- USER END -------
 database.execute(create_user_table)
 database.execute(create_items_table)
 
-=begin
+
 # INTERFACE:
 #   Ask for user name 
 #     if not a user already
@@ -143,7 +151,6 @@ unless user
   user = create_user(user_name) 
 end
 # the user will always exist at this point. 
-
 
 # LOOP - Ask user what they would like to do: add items to their closets, get an outfit 
 # suggestion, see their closet items or exit
@@ -168,7 +175,7 @@ loop do
       puts "On a scale from 1-3 how warm is this item?"
       item_warmth = gets.chomp
      
-      add_item(item_descr, item_category, item_warmth)
+      add_item(item_descr, item_category, item_warmth, user['id'])
 
       puts "Do you want to add more items? 'yes'/'no'"
       continue = gets.chomp
@@ -196,14 +203,14 @@ loop do
     cast = gets.chomp
 
     # retrieve an outfit based on temp. 
-    top = retrieve_item(temperature[weather], "tops")
-    bottom = retrieve_item(temperature[weather], "bottoms")
-    shoes = retrieve_item(temperature[weather], "shoes")
-    coat = retrieve_item(temperature[weather], "coats")
-    accessory = retrieve_item(temperature[weather], "accessories")
+    top = retrieve_item(temperature[weather], user['id'], "tops")['item']
+    bottom = retrieve_item(temperature[weather], user['id'], "bottoms")['item']
+    shoes = retrieve_item(temperature[weather], user['id'], "shoes")['item']
+    coat = retrieve_item(temperature[weather], user['id'], "coats")['item']
+    accessory = retrieve_item(temperature[weather], user['id'], "accessories")['item']
 
-    puts "Here's the perfect outfit for today: #{top[0]['item']}, #{bottom[0]['item']}, 
-         #{shoes[0]['item']}, paired with the #{coat[0]['item']} and #{accessory[0]['item']}!"
+    puts "Here's the perfect outfit for today: #{top}, #{bottom}, 
+         #{shoes}, paired with the #{coat} and #{accessory}!"
 
     if cast == 'sunny'
       puts "And don't forget a sunhat!"
@@ -215,7 +222,7 @@ loop do
   # IF inspect closet
   if action == 'print'
   # print all items user has
-    print_closet
+    print_clothes(user['id'])
   end
 
   # IF exit
@@ -225,5 +232,5 @@ loop do
 end
 puts "Thank you for using 'Weather or Not'!"
 
-=end
+
 
