@@ -1,8 +1,8 @@
-# Whether or Not
+# Weather or Not
 
 ## the fashion outfit picker 
 
-> Whether or Not is your personal stylist that picks an outfit for you, depending on what the weather is. 
+> Weather or Not is your personal stylist that picks an outfit for you, depending on what the weather is. 
 
 ----
 ## usage
