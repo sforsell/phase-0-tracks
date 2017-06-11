@@ -14,6 +14,7 @@
 #       item VARCHAR <- name and short descr of item, ie "white ruffeled tank"
 #       warmth_level INT <- between 1-3
 #       category VARCHAR : tops, bottoms, shoes, accessories, coats, dresses
+#       user_id INT FK
 
 #     user: 
 #       id INT PK
@@ -57,8 +58,12 @@
 #     IF exit
 #       exit program.
 
+# ------- REQUIRES ------- 
+
 require 'sqlite3'
+
 # ------- CREATE DB AND TABLES ------- 
+
 def database
   @__database__ ||= begin
     db = SQLite3::Database.new("weather.db")
@@ -87,38 +92,41 @@ create_items_table = <<-SQL
 
 SQL
 
-
 # ------- BUSINESS LOGIC ------- 
-def add_user(user_name)
-  database.execute("INSERT INTO users (name) VALUES (?);", [user_name])
+
+def add_user(user)
+  database.execute("INSERT INTO users (name) VALUES (?);", [user])
 end
 
-def fetch_user(user_name)
-  user = database.execute("SELECT * FROM users WHERE name = ? ;", [user_name])
+def fetch_user(user)
+  user = database.execute("SELECT * FROM users WHERE name = ? ;", [user])
   return user[0] unless user.empty?
   #user returns as just a hask - not a hash inside an array. 
 end
 
-def add_item(item, category, warmth_level, user_id)
+def add_item(item, category, warmth_level, user)
   database.execute("INSERT INTO items (item, category, warmth_level, user_id) VALUES (?, ?, ?, ?);", 
-                  [item, category, warmth_level, user_id])
+                  [item, category, warmth_level, user])
 end
 
-def retrieve_item(warmth_level, user_id, category ) 
-  item = database.execute("SELECT item FROM items WHERE warmth_level = ?
+def retrieve_item(warmth_level, user, category ) 
+  item = database.execute("SELECT item FROM items 
+                    WHERE warmth_level = ?
                     AND user_id = ?
                     AND category = ? order by random () limit 1;",
-                    [warmth_level, user_id, category])
-  return item[0] # returns as just a hash - not a hash inside an array. 
+                    [warmth_level, user, category])
+  return item[0]
 end
 
-def print_clothes(user_id)
-  items_list = database.execute("SELECT item, category FROM items WHERE user_id = ? ORDER BY category;", [user_id])
+def print_clothes(user)
+  items_list = database.execute("SELECT item, category FROM items WHERE user_id = ? ORDER BY category;", [user])
   puts "These are the clothes in your closet:"
   items_list.each_index do |index|
-    puts "- #{items_list[index]['item']} --> #{items_list[index]['category']}" # like this or items_list[item] ??
+    puts "- #{items_list[index]['item']} --> #{items_list[index]['category']}"
   end
 end
+
+# ------- DRIVER ?TEST CODE ------- 
 
 # fetch_user("sofia") -- returns hash
 # fetch_user("sofia")['id'] -- reurns id as int
@@ -129,35 +137,29 @@ end
 
 # items_list = database.execute("SELECT item FROM items WHERE user_id = 1 ORDER BY category;")
 # items_list # -- returns an array with many hashes. 
+
 # ------- USER END -------
+
 database.execute(create_user_table)
 database.execute(create_items_table)
 
 
-# INTERFACE:
-#   Ask for user name 
-#     if not a user already
-#       create a user
 puts "please type in your username"
 user_name = gets.chomp
-# if user_name in DB 
-#   get user info
+# get user info
 user = fetch_user(user_name)
-# else
-#   add user
-#   get user info
-# end
+# unless user doesn't exit
 unless user
-  user = create_user(user_name) 
+  # create user
+  user = add_user(user_name) 
 end
 # the user will always exist at this point. 
 
 # LOOP - Ask user what they would like to do: add items to their closets, get an outfit 
 # suggestion, see their closet items or exit
 loop do
-  puts "What would you like to do? \n To add an item to your closet type 'add', to get 
-    an outfit suggestion type 'outfit', to see all your items in closet type 'print'. Type 'exit' 
-    when you're done."
+  puts "What would you like to do?" 
+  puts "To add an item to your closet type 'add',\n to get an outfit suggestion type 'outfit',\n to see all your items in closet type 'print'.\n Type 'exit' when you're done."
   action = gets.chomp
 
 # IF add items 
@@ -185,9 +187,8 @@ loop do
     end
   end
 
-  # IF retrieve outfit
   if action == 'outfit'
-    # ask series of weather Qs,
+  
     puts "What's the weather today? 'hot', 'medium', or 'cold'?"
     weather = gets.chomp
     # instead of big if/else, just check against this hash. 
@@ -196,9 +197,8 @@ loop do
       "medium" => 2,
       "cold" => 3
     }
-
     # temperature[weather] will get the warmth_level for method call. 
-     
+    
     puts "Is it 'sunny', 'cloudy' or 'rainy' outside?"
     cast = gets.chomp
 
@@ -209,8 +209,8 @@ loop do
     coat = retrieve_item(temperature[weather], user['id'], "coats")['item']
     accessory = retrieve_item(temperature[weather], user['id'], "accessories")['item']
 
-    puts "Here's the perfect outfit for today: #{top}, #{bottom}, 
-         #{shoes}, paired with the #{coat} and #{accessory}!"
+    puts "Here's the perfect outfit for today:"
+    puts "#{top}, #{bottom}, #{shoes}, paired with the #{coat} and #{accessory}!"
 
     if cast == 'sunny'
       puts "And don't forget a sunhat!"
@@ -219,14 +219,10 @@ loop do
     end
   end 
 
-  # IF inspect closet
   if action == 'print'
-  # print all items user has
     print_clothes(user['id'])
   end
 
-  # IF exit
-  # exit program.
   break if action == 'exit'
 
 end
