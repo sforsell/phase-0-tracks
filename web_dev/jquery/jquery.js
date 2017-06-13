@@ -44,3 +44,13 @@ this because the generated ids have a prefix of "ui-id-".
 */
 
 $( "#tabs" ).tabs();
+
+$( "#grow" ).hover(function() {
+  $("#grow").css("width", "200");
+  $("#grow").css("height", "200");
+});
+
+
+$( "#button3" ).on( "click", function() {
+  $("body").append("<p> Piling on... </p>")
+});
