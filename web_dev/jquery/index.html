@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jquery testing</title>
+        <style>
+            #draggable {
+            width: 100px;
+            height: 100px;
+            background-color: lightBlue;
+        }
+        </style>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"> </script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"> </script>
+        <script src="./jquery.js"></script>
+    </head>
+    <body>
+    <div id="effect">
+        <p> Etiam libero neque, luctus a, eleifend nec, semper at, lorem. Sed pede. Nulla lorem metus, adipiscing ut, luctus sed, hendrerit vitae, mi.
+        </p>
+    </div>
+    <button id="button">Run Effect!</button>
+
+    <div id="otherEffect">
+        <p> Etiam libero neque, luctus a, eleifend nec, semper at, lorem. Sed pede. Nulla lorem metus, adipiscing ut, luctus sed, hendrerit vitae, mi.
+        </p>
+    </div>
+    <button id="button2">Animate!</button>
+
+    <div id="draggable">Drag me</div>
+
+     <ul id="sortable">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+    </ul>
+
+    <p> jQuery also has a bunch of icons and other style specific things to use! => <span class="ui-icon ui-icon-check"></span> </p>
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#fragment-1"><span>One</span></a></li>
+            <li><a href="#fragment-2"><span>Two</span></a></li>
+            <li><a href="#fragment-3"><span>Three</span></a></li>
+        </ul>
+        <div id="fragment-1">
+            <p>First tab is active by default:</p>
+            <pre><code>$( "#tabs" ).tabs(); </code></pre>
+        </div>
+        <div id="fragment-2">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+        </div>
+        <div id="fragment-3">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"> </script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"> </script>
+    <script src="./jquery.js"></script>
+
+    </body>
+</html>
