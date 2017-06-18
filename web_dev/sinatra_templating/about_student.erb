@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Campus Info</title>
+</head>
+<body>
+<p>DBC CAMPUSES!</p>
+<p>DBC is currently in these locations:</p>
+<ul>
+    <% @students.each do |student| %>
+      <li><%= student['campus']%></li>
+    <% end %>
+  </ul>
+
+ <p>Not a fan of San Fran? Want a DBC location near you?  Add your location to our form</p>
+ <form action="/new_location" method="GET">
+ 	<input type="text" name="location" placeholder="location">
+ 	<button type="submit">Send</button>
+ </form>
+<p>Here are some location suggestions</p>
+ <ul>
+ 	<% @locations.each do |locations| %>
+ 	<li><%=locations['location']%></li>
+ 	<% end %>
+ </ul>
+</body>
+</html>
